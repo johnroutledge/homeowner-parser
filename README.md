@@ -17,54 +17,82 @@ This project was implemented as a technical test and intentionally supports only
 
 Install dependencies:
 
+```bash
 composer install
+```
 
 Create the environment file and application key:
 
+```bash
 cp .env.example .env
 php artisan key:generate
+```
 
-Running the Application
+---
+
+## Running the Application
 
 Run the parser from the command line using Artisan:
 
+```bash
 php artisan parse:homeowners path/to/file.csv
+```
 
-CSV file location
+### CSV file location
 
-The CSV file can be placed anywhere on your filesystem
-
-You may pass either a relative or absolute path
+- The CSV file can be placed anywhere on your filesystem
+- You may pass either a relative or absolute path
 
 Examples:
 
+```bash
 php artisan parse:homeowners storage/app/homeowners.csv
 php artisan parse:homeowners ./example.csv
 php artisan parse:homeowners /full/path/to/example.csv
-
+```
 
 The command reads the CSV, parses homeowner names, and outputs formatted JSON to STDOUT.
 
-Testing
+---
+
+## Testing
 
 A small, focused unit test suite is included for the core parsing logic.
 
 Run tests with:
 
+```bash
 php artisan test
+```
 
-Implementation Notes
+---
 
-Parsing logic is implemented using small, single-responsibility services
+## Project Structure
 
-CsvReaderService handles CSV I/O only
+Key application components relevant to this exercise:
 
-NameSplitterService handles household-level name splitting
+```
+app/
+├── Console/Commands/ParseHomeownersCommand.php
+├── DTOs/PersonNameDto.php
+├── Enums/Title.php
+├── Services/
+│ ├── CsvReaderService.php
+│ ├── HomeownerParserService.php
+│ ├── IndividualNameParserService.php
+│ └── NameSplitterService.php
+tests/
+└── Unit/Services/IndividualNameParserTest.php
+```
 
-IndividualNameParserService parses a single name into a DTO
+---
 
-Titles are normalised using a PHP enum to avoid duplication
+## Implementation Notes
 
-The Artisan command acts as the presentation layer and is responsible for JSON output
-
-The implementation deliberately supports only the formats present in the example CSV in order to respect the two-hour scope of the exercise.
+- Parsing logic is implemented using small, single-responsibility services
+- CsvReaderService handles CSV I/O only
+- NameSplitterService handles household-level name splitting
+- IndividualNameParserService parses a single name into a DTO
+- Titles are normalised using a PHP enum to avoid duplication
+- The Artisan command acts as the presentation layer and is responsible for JSON output
+- The implementation deliberately supports only the formats present in the example CSV in order to respect the two-hour scope of the exercise.
