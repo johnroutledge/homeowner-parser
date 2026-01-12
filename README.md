@@ -87,6 +87,16 @@ tests/
 
 ---
 
+## Use of AI
+
+AI tooling was used in a limited, supportive capacity during development.
+
+Specifically, it was used to sanity-check that the final JSON output matched the required format described in the test brief and to validate edge cases already present in the example CSV (such as shared surnames across multiple titles and shared first names for couples with different titles).
+
+It was also used as a productivity aid when scaffolding a small, focused unit test suite and for reviewing documentation clarity.
+
+---
+
 ## Implementation Notes
 
 - Parsing logic is implemented using small, single-responsibility services
